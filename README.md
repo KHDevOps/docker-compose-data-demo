@@ -2,6 +2,9 @@
 
 Simple ETL data pipeline using Docker Compose that fetches random user data and loads it into PostgreSQL every 5 minutes.
 
+> **Legal Notice:** This project was developed for [DataBird](https://databird.co). 
+> Copyright © 2025 DataBird. All rights reserved.
+
 ## Prerequisites
 
 - Docker & Docker Compose
