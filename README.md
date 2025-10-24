@@ -2,6 +2,11 @@
 
 Simple ETL data pipeline using Docker Compose that fetches random user data and loads it into PostgreSQL every 5 minutes.
 
+## Prerequisites
+
+- Docker & Docker Compose
+- Python 3.8+ (for testing)
+
 ## Quick Start
 
 ### 1. Start Everything
@@ -46,6 +51,22 @@ docker-compose logs -f etl
    - `DOCKER_HUB_TOKEN`: your Docker Hub access token
 
 2. **Push to GitHub**: Auto-builds and pushes to `khdevops/etl-app:latest`
+
+## Testing
+
+Run the integration test to verify everything works:
+
+```bash
+cd tests/
+pip install -r requirements.txt
+pytest test_simple.py -v -s
+```
+
+The test will:
+- Start docker-compose services
+- Wait for PostgreSQL to be ready
+- Verify data is being inserted
+- Clean up services
 
 ## Cleanup
 
