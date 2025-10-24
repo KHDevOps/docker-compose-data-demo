@@ -18,7 +18,7 @@ services:
       retries: 5
 
   etl:
-    image: khdevops/etl-app-docker-compose:latest
+    build: ./app
     environment:
       DB_HOST: postgres
       DB_PORT: 5432

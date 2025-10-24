@@ -7,7 +7,7 @@ def test_docker_compose_works():
 
     # Start services
     print("Starting docker-compose services...")
-    subprocess.run(["docker","compose", "up", "-d"], cwd="..")
+    subprocess.run(["docker","compose", "--env-file", ".env.example", "up", "-d"], cwd="..")
 
     # Wait for services to be ready
     print("Waiting for services to start...")
