@@ -4,6 +4,7 @@ import pandas as pd
 import psycopg2
 from datetime import datetime
 import sys
+import time
 
 API_URL = "https://randomuser.me/api/?results=50"
 
@@ -116,12 +117,8 @@ def load(df):
         cur.close()
         conn.close()
 
-def main():
-    """Main ETL pipeline"""
-    print(f"[{datetime.now()}] === Starting ETL Pipeline ===")
-    
-    validate_config()
-    
+def run_etl():
+    """Single ETL run"""
     try:
         raw_data = extract()
         transformed_data = transform(raw_data)
@@ -129,7 +126,24 @@ def main():
         print(f"[{datetime.now()}] === Pipeline completed successfully ✓ ===")
     except Exception as e:
         print(f"[{datetime.now()}] Pipeline error: {e}")
-        sys.exit(1)
+        raise
+
+def main():
+    """Main ETL pipeline - runs every 5 minutes"""
+    print(f"[{datetime.now()}] === Starting ETL Scheduler (5-minute intervals) ===")
+
+    validate_config()
+
+    while True:
+        try:
+            print(f"[{datetime.now()}] === Starting ETL Run ===")
+            run_etl()
+            print(f"[{datetime.now()}] === Waiting 5 minutes for next run ===")
+            time.sleep(300)  # 5 minutes
+        except Exception as e:
+            print(f"[{datetime.now()}] ETL run failed: {e}")
+            print(f"[{datetime.now()}] === Waiting 5 minutes before retry ===")
+            time.sleep(300)  # Still wait 5 minutes even on error
 
 if __name__ == "__main__":
     main()
