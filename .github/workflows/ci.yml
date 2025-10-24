@@ -1,0 +1,28 @@
+name: Test Docker Compose
+
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install test dependencies
+      run: pip install -r tests/requirements.txt
+
+    - name: Run integration tests
+      run: cd tests && pytest test_simple.py -v -s
+
+    - name: Cleanup
+      if: always()
+      run: docker compose down -v
