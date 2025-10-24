@@ -4,22 +4,17 @@ Simple ETL data pipeline using Docker Compose that fetches random user data and 
 
 ## Quick Start
 
-### 1. Start PostgreSQL
+### 1. Start Everything
 ```bash
-docker-compose up -d postgres
+docker-compose up
 ```
 
-### 2. Run ETL Pipeline
-```bash
-docker-compose run --rm etl
-```
-
-### 3. Connect to Database
+### 2. Connect to Database
 ```bash
 docker-compose exec postgres psql -U postgres -d postgres
 ```
 
-### 4. Query Data
+### 3. Query Data
 ```sql
 SELECT COUNT(*) FROM random_users;
 SELECT * FROM random_users LIMIT 5;

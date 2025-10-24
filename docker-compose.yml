@@ -28,8 +28,6 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    profiles:
-      - manual
 
 volumes:
   postgres_data:
