@@ -1,4 +1,4 @@
-name: Test Docker Compose
+name: Test
 
 on:
   pull_request:
